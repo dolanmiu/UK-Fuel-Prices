@@ -1,0 +1,27 @@
+{
+  "name": "uk-fuel-prices",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "start": "npm run build && node dist/main.js",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "@vitest/coverage-v8": "^0.34.6",
+    "@vitest/ui": "^0.34.6",
+    "typescript": "^5.0.2",
+    "vite": "^4.4.5",
+    "vite-plugin-dts": "^3.6.2",
+    "vite-plugin-node": "^3.0.2",
+    "vite-tsconfig-paths": "^4.2.1",
+    "vitest": "^0.34.6"
+  },
+  "dependencies": {
+    "axios": "^1.6.0",
+    "fastify": "^4.24.3",
+    "ts-node": "^10.9.1"
+  }
+}
