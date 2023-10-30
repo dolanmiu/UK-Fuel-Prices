@@ -12,37 +12,37 @@ export const fetchFromAsda: () => Promise<StoreFetchResponse> = () =>
 
 export const fetchFromBp: () => Promise<StoreFetchResponse> = () =>
   fetchStoreFuelStations(
-    "https://www.bp.com/en_gb/united-kingdom/home/fuelprices/fuel_prices_data.json"
+    "https://www.bp.com/en_gb/united-kingdom/home/fuelprices/fuel_prices_data.json",
   );
 
 export const fetchFromEsso: () => Promise<StoreFetchResponse> = () =>
   fetchStoreFuelStations(
-    "https://www.esso.co.uk/-/media/Project/WEP/Esso/Esso-Retail-UK/roadfuelpricingscheme.json"
+    "https://www.esso.co.uk/-/media/Project/WEP/Esso/Esso-Retail-UK/roadfuelpricingscheme.json",
   );
 
 export const fetchFromMorrisons: () => Promise<StoreFetchResponse> = () =>
   fetchStoreFuelStations(
-    "https://images.morrisons.com/petrol-prices/petrol.json"
+    "https://images.morrisons.com/petrol-prices/petrol.json",
   );
 
 export const fetchFromMotorFuelGroup: () => Promise<StoreFetchResponse> = () =>
   fetchStoreFuelStations(
-    "https://fuel.motorfuelgroup.com/fuel_prices_data.json"
+    "https://fuel.motorfuelgroup.com/fuel_prices_data.json",
   );
 
 export const fetchFromRontec: () => Promise<StoreFetchResponse> = () =>
   fetchStoreFuelStations(
-    "https://www.rontec-servicestations.co.uk/fuel-prices/data/fuel_prices_data.json"
+    "https://www.rontec-servicestations.co.uk/fuel-prices/data/fuel_prices_data.json",
   );
 
 export const fetchFromSainsburys: () => Promise<StoreFetchResponse> = () =>
   fetchStoreFuelStations(
-    "https://api.sainsburys.co.uk/v1/exports/latest/fuel_prices_data.json"
+    "https://api.sainsburys.co.uk/v1/exports/latest/fuel_prices_data.json",
   );
 
 export const fetchFromSGN: () => Promise<StoreFetchResponse> = () =>
   fetchStoreFuelStations(
-    "https://www.sgnretail.uk/files/data/SGN_daily_fuel_prices.json"
+    "https://www.sgnretail.uk/files/data/SGN_daily_fuel_prices.json",
   );
 
 export const fetchFromShell: () => Promise<StoreFetchResponse> = () =>
@@ -50,5 +50,23 @@ export const fetchFromShell: () => Promise<StoreFetchResponse> = () =>
 
 export const fetchFromTesco: () => Promise<StoreFetchResponse> = () =>
   fetchStoreFuelStations(
-    "https://www.tesco.com/fuel_prices/fuel_prices_data.json"
+    "https://www.tesco.com/fuel_prices/fuel_prices_data.json",
   );
+
+export const fetchFromAll: () => Promise<StoreFetchResponse[]> = async () => {
+  const responses = await Promise.all([
+    fetchFromAppleGreen(),
+    fetchFromAscon(),
+    fetchFromAsda(),
+    fetchFromBp(),
+    fetchFromEsso(),
+    fetchFromMorrisons(),
+    fetchFromMotorFuelGroup(),
+    fetchFromRontec(),
+    fetchFromSainsburys(),
+    fetchFromSGN(),
+    fetchFromShell(),
+    fetchFromTesco(),
+  ]);
+  return responses;
+};
