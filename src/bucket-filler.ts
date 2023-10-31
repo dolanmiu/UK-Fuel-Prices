@@ -1,6 +1,7 @@
 import { Bucket, buckets, floorToOneDecimalPlace } from "./bucket";
 import { fetchFromAll } from "./fetchers/stores";
 import { FuelStation } from "./fetchers/types";
+import { applyFunctionToRecordValues, normalizeNumber } from "./util";
 
 export const fillBucket = (bucket: Bucket, stations: FuelStation[]) => {
   for (const station of stations) {
@@ -13,7 +14,10 @@ export const fillBucket = (bucket: Bucket, stations: FuelStation[]) => {
     if (!longitudeBucket) {
       continue;
     }
-    longitudeBucket.push(station);
+    longitudeBucket.push({
+      ...station,
+      prices: applyFunctionToRecordValues(station.prices, normalizeNumber)
+    });
   }
 };
 
