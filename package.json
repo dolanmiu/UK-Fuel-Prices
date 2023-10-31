@@ -8,7 +8,7 @@
     "build": "tsc && vite build",
     "test": "vitest --ui",
     "test:ci": "vitest run",
-    "start": "node dist/main.js",
+    "start": "npm run build && node dist/main.js",
     "preview": "vite preview",
     "prettier": "prettier -l .",
     "prettier:fix": "prettier --write .",
@@ -31,5 +31,8 @@
     "dotenv": "^16.3.1",
     "fastify": "^4.24.3",
     "ts-node": "^10.9.1"
+  },
+  "engines": {
+    "node": "16.x"
   }
 }
