@@ -37,7 +37,7 @@ fastify.route<{
     console.log(`Query for ${request.query.query}. lat: ${lat}, lon: ${lon}`);
     const stations = getFuelStationsFromLatitudeAndLongitudeRadius(lat, lon);
 
-    const sortBy = request.query.sort?.toLowerCase();
+    const sortBy = request.query.sort?.toUpperCase();
 
     return [...stations].sort((a, b) => {
       if (sortBy === "E10") {
