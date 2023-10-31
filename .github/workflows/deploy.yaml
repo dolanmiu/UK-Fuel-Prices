@@ -1,6 +1,9 @@
 name: CI
 
-on: [push]
+on:
+  push:
+    branches:
+      - master
 
 jobs:
   sync:
@@ -16,5 +19,5 @@ jobs:
       - name: Sync to Glitch Project
         uses: kanadgupta/glitch-sync@main
         with:
-          auth-token: '${{ secrets.AUTHTOKEN }}'
-          project-id: '${{ secrets.PROJECTID }}'
+          auth-token: "${{ secrets.AUTHTOKEN }}"
+          project-id: "${{ secrets.PROJECTID }}"
