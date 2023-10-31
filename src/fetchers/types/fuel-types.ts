@@ -24,4 +24,5 @@ export interface Location {
 export interface Prices {
   E10: number;
   B7: number;
+  E5: number;
 }

@@ -66,7 +66,7 @@ export const fetchFromAll: () => Promise<StoreFetchResponse[]> = async () => {
     fetchFromSainsburys(),
     fetchFromSGN(),
     fetchFromShell(),
-    fetchFromTesco(),
+    // fetchFromTesco(),
   ]);
   return responses;
 };

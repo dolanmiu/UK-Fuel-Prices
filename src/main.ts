@@ -10,13 +10,14 @@ const fastify = Fastify({
 });
 
 fastify.route<{
-  Querystring: { query?: string };
+  Querystring: { query?: string; sort?: "E10" | "E5" | "B7" };
 }>({
   method: "GET",
   url: "/",
   schema: {
     querystring: {
       query: { type: "string" },
+      sort: { type: "string" },
     },
   },
   handler: async (request, reply) => {
@@ -34,7 +35,25 @@ fastify.route<{
       ],
     } = await fetchGeocodingFromAddress(request.query.query);
     console.log(`Query for ${request.query.query}. lat: ${lat}, lon: ${lon}`);
-    return getFuelStationsFromLatitudeAndLongitudeRadius(lat, lon);
+    const stations = getFuelStationsFromLatitudeAndLongitudeRadius(lat, lon);
+
+    const sortBy = request.query.sort?.toLowerCase();
+
+    return [...stations].sort((a, b) => {
+      if (sortBy === "E10") {
+        return a.prices.E10 - b.prices.E10;
+      }
+
+      if (sortBy === "E5") {
+        return a.prices.E5 - b.prices.E5;
+      }
+
+      if (sortBy === "B7") {
+        return a.prices.B7 - b.prices.B7;
+      }
+
+      return 0;
+    });
   },
 });
 
