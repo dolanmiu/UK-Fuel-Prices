@@ -5,6 +5,10 @@ import { getFuelStationsFromLatitudeAndLongitudeRadius } from "./bucket";
 import { fetchDataToFillBucket } from "./bucket-filler";
 import { fetchGeocodingFromAddress } from "./fetchers/geocoder";
 
+console.log("Loading data into bucket");
+await fetchDataToFillBucket();
+console.log("Data loaded into bucket");
+
 const fastify = Fastify({
   logger: true,
 });
@@ -69,9 +73,6 @@ fastify.route<{
 fastify.listen({ port: 3000 }, async (err, _address) => {
   if (err) throw err;
   // Server is now listening on ${address}
-  console.log("Loading data into bucket");
-  await fetchDataToFillBucket();
-  console.log("Data loaded into bucket");
 });
 
 export const viteNodeApp = fastify;
