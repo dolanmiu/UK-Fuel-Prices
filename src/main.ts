@@ -1,5 +1,6 @@
 import "dotenv/config";
 import Fastify from "fastify";
+import { getDistance } from "geolib";
 
 import { getFuelStationsFromLatitudeAndLongitudeRadius } from "./bucket";
 import { fetchDataToFillBucket } from "./bucket-filler";
@@ -14,7 +15,7 @@ const fastify = Fastify({
 });
 
 fastify.route<{
-  Querystring: { query?: string; sort?: "E10" | "E5" | "B7" };
+  Querystring: { query?: string; sort?: "E10" | "E5" | "B7"; radius?: number };
 }>({
   method: "GET",
   url: "/",
@@ -22,6 +23,7 @@ fastify.route<{
     querystring: {
       query: { type: "string" },
       sort: { type: "string" },
+      radius: { type: "number" },
     },
   },
   handler: async (request, reply) => {
@@ -45,30 +47,37 @@ fastify.route<{
 
     const sortBy = request.query.sort?.toUpperCase();
 
-    return [...stations].sort((a, b) => {
-      if (sortBy === "E10") {
-        return (
-          (a.prices.E10 ?? Number.MAX_SAFE_INTEGER) -
-          (b.prices.E10 ?? Number.MAX_SAFE_INTEGER)
-        );
-      }
+    const radius = request.query.radius ?? 5000;
 
-      if (sortBy === "E5") {
-        return (
-          (a.prices.E5 ?? Number.MAX_SAFE_INTEGER) -
-          (b.prices.E5 ?? Number.MAX_SAFE_INTEGER)
-        );
-      }
+    return [...stations]
+      .filter(
+        ({ location }) =>
+          getDistance({ latitude: lat, longitude: lon }, location) <= radius,
+      )
+      .sort((a, b) => {
+        if (sortBy === "E10") {
+          return (
+            (a.prices.E10 ?? Number.MAX_SAFE_INTEGER) -
+            (b.prices.E10 ?? Number.MAX_SAFE_INTEGER)
+          );
+        }
 
-      if (sortBy === "B7") {
-        return (
-          (a.prices.B7 ?? Number.MAX_SAFE_INTEGER) -
-          (b.prices.B7 ?? Number.MAX_SAFE_INTEGER)
-        );
-      }
+        if (sortBy === "E5") {
+          return (
+            (a.prices.E5 ?? Number.MAX_SAFE_INTEGER) -
+            (b.prices.E5 ?? Number.MAX_SAFE_INTEGER)
+          );
+        }
 
-      return 0;
-    });
+        if (sortBy === "B7") {
+          return (
+            (a.prices.B7 ?? Number.MAX_SAFE_INTEGER) -
+            (b.prices.B7 ?? Number.MAX_SAFE_INTEGER)
+          );
+        }
+
+        return 0;
+      });
   },
 });
 

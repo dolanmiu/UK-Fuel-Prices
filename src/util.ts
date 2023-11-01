@@ -8,7 +8,7 @@ export const normalizeNumber = (inputNumber: number): number => {
 
 export const applyFunctionToRecordValues = <T, V>(
   record: any,
-  fn: (value: T) => V
+  fn: (value: T) => V,
 ): Record<any, V> => {
   const result: Record<any, V> = {};
 

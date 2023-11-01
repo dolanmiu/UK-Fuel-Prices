@@ -23,8 +23,8 @@ describe("applyFunctionToRecordValues", () => {
           E10: 155.9,
           E5: 169.9,
         },
-        normalizeNumber
-      )
+        normalizeNumber,
+      ),
     ).toEqual({
       B7: 165.9,
       SDV: 181.9,
@@ -37,8 +37,8 @@ describe("applyFunctionToRecordValues", () => {
     expect(
       applyFunctionToRecordValues(
         { E5: 1.659, E10: 1.469, B7: 1.559, SDV: 1.739 },
-        normalizeNumber
-      )
+        normalizeNumber,
+      ),
     ).toEqual({
       B7: 155.9,
       E10: 146.9,

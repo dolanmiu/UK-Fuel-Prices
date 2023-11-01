@@ -16,7 +16,7 @@ export const fillBucket = (bucket: Bucket, stations: FuelStation[]) => {
     }
     longitudeBucket.push({
       ...station,
-      prices: applyFunctionToRecordValues(station.prices, normalizeNumber)
+      prices: applyFunctionToRecordValues(station.prices, normalizeNumber),
     });
   }
 };
