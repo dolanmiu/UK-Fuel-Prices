@@ -6,7 +6,7 @@ import { fetchDataToFillBucket } from "./bucket-filler";
 import { fetchGeocodingFromAddress } from "./fetchers/geocoder";
 
 console.log("Loading data into bucket");
-await fetchDataToFillBucket();
+const fetchPromise = fetchDataToFillBucket();
 console.log("Data loaded into bucket");
 
 const fastify = Fastify({
@@ -29,6 +29,8 @@ fastify.route<{
       reply.type("application/json").code(400);
       return { error: "No query provided" };
     }
+
+    await fetchPromise;
 
     reply.type("application/json").code(200);
     const {
