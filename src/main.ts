@@ -27,6 +27,8 @@ fastify.route<{
     },
   },
   handler: async (request, reply) => {
+    reply.header("Access-Control-Allow-Origin", "*");
+    reply.header("Access-Control-Allow-Methods", "GET");
     if (!request.query.query) {
       reply.type("application/json").code(400);
       return { error: "No query provided" };
