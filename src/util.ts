@@ -1,6 +1,6 @@
 export const normalizeNumber = (inputNumber: number): number => {
   if (inputNumber <= 10) {
-    return inputNumber * 100;
+    return parseFloat((inputNumber * 100).toFixed(1));
   } else {
     return inputNumber;
   }

@@ -9,6 +9,7 @@ describe("normalizeNumber", () => {
   it("should normalize", () => {
     expect(normalizeNumber(1)).toEqual(100);
     expect(normalizeNumber(1.5567)).toEqual(155.67);
+    expect(normalizeNumber(1.7789)).toEqual(177.89);
   });
 });
 
