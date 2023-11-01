@@ -41,15 +41,24 @@ fastify.route<{
 
     return [...stations].sort((a, b) => {
       if (sortBy === "E10") {
-        return a.prices.E10 - b.prices.E10;
+        return (
+          (a.prices.E10 ?? Number.MAX_SAFE_INTEGER) -
+          (b.prices.E10 ?? Number.MAX_SAFE_INTEGER)
+        );
       }
 
       if (sortBy === "E5") {
-        return a.prices.E5 - b.prices.E5;
+        return (
+          (a.prices.E5 ?? Number.MAX_SAFE_INTEGER) -
+          (b.prices.E5 ?? Number.MAX_SAFE_INTEGER)
+        );
       }
 
       if (sortBy === "B7") {
-        return a.prices.B7 - b.prices.B7;
+        return (
+          (a.prices.B7 ?? Number.MAX_SAFE_INTEGER) -
+          (b.prices.B7 ?? Number.MAX_SAFE_INTEGER)
+        );
       }
 
       return 0;
