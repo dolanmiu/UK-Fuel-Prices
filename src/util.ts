@@ -1,5 +1,5 @@
 export const normalizeNumber = (inputNumber: number): number => {
-  if (inputNumber >= 1 && inputNumber <= 10) {
+  if (inputNumber >= 100) {
     return inputNumber / 100;
   } else {
     return inputNumber;
